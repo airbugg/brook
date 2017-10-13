@@ -1,8 +1,7 @@
 # encoding: utf-8
 
 import sys
-import argparse
-from workflow import Workflow3, ICON_WEB, web
+from workflow import Workflow3, web
 from bs4 import BeautifulSoup
 
 
@@ -24,18 +23,33 @@ def search_torrents(query):
 
 
 def main(wf):
-    result = wf.cached_data('result', search_torrents, max_age=60)
+    # Get query from Alfred
+    if len(wf.args):
+        query = wf.args[0]
+    else:
+        query = None
 
-    soup = BeautifulSoup(result, 'html.parser')
+    results = search_torrents(query)
+    soup = BeautifulSoup(results, 'html.parser')
 
     # Loop through the returned posts and add an item for each to
     # the list of results for Alfred
     for row in soup.select('table tr')[1:]:
         columns = row.find_all('td')
-        wf.add_item(title=columns[1].text.strip(),
-                    subtitle=' '.join(columns[0].text.strip().splitlines()),
-                    valid=True,
-                    icon=ICON_WEB)
+        description = columns[1].text.strip().split('\n\n')
+        title = description[0]
+        metadata = description[1].encode('ascii', 'replace').split(',')[1].strip().split()[1].replace('?', ' ')
+        seeders = columns[2].text
+        leechers = columns[3].text
+        type = ' '.join(columns[0].text.strip().splitlines())
+        magnet = columns[1].select('a[href^="magnet"]')[0]['href']
+
+        subtitle = '{} | {} | LE: {} | SE: {}'.format(type, metadata, leechers, seeders)
+
+        wf.add_item(title=title,
+                    subtitle=subtitle,
+                    arg=magnet,
+                    valid=True)
 
     # Send the results to Alfred as XML
     wf.send_feedback()
