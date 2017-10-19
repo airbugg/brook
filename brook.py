@@ -30,7 +30,7 @@ def main(wf):
         query = None
 
     results = search_torrents(query)
-    soup = BeautifulSoup(results, 'html.parser')
+    soup = BeautifulSoup(wf.decode(results), 'html.parser')
 
     # Loop through the returned posts and add an item for each to
     # the list of results for Alfred
@@ -38,18 +38,20 @@ def main(wf):
         columns = row.find_all('td')
         description = columns[1].text.strip().split('\n\n')
         title = description[0]
-        metadata = description[1].encode('ascii', 'replace').split(',')[1].strip().split()[1].replace('?', ' ')
+        metadata = description[1].encode('utf-8').split(',')
+        size = metadata[1].strip().split()[1]
+        upload_date = metadata[0].strip()
         seeders = columns[2].text
         leechers = columns[3].text
         type = ' '.join(columns[0].text.strip().splitlines())
         magnet = columns[1].select('a[href^="magnet"]')[0]['href']
 
-        subtitle = '{} | {} | LE: {} | SE: {}'.format(type, metadata, leechers, seeders)
+        subtitle = '{} | {} | {} | LE: {} | SE: {}'.format(type, size, upload_date, leechers, seeders)
 
         wf.add_item(title=title,
                     subtitle=subtitle,
                     arg=magnet,
-                    valid=True)
+                    valid=True if int(seeders) > 0 else False)
 
     # Send the results to Alfred as XML
     wf.send_feedback()
