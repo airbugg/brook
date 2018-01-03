@@ -4,16 +4,58 @@
 <dict>
 	<key>bundleid</key>
 	<string>com.alfredapp.brook</string>
+	<key>category</key>
+	<string>Tools</string>
 	<key>connections</key>
-	<dict/>
+	<dict>
+		<key>04A38B1E-BF90-4835-A18B-5292157F3352</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>FE9BA6CD-BE33-4350-A527-35DC5C3D5F3E</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>4C94FE5A-3C49-45B9-A0BF-18B934252561</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>FE9BA6CD-BE33-4350-A527-35DC5C3D5F3E</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>FE9BA6CD-BE33-4350-A527-35DC5C3D5F3E</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>674507A5-54C8-4CAB-AD88-3E458924AD9F</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
 	<key>createdby</key>
 	<string>Eugene Lerman</string>
 	<key>description</key>
-	<string>Searches piratebay for you</string>
+	<string>Fast, live search of The Pirate Bay</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
-	<string>Brook</string>
+	<string>brook</string>
 	<key>objects</key>
 	<array>
 		<dict>
@@ -26,40 +68,131 @@
 				<key>argumenttrimmode</key>
 				<integer>0</integer>
 				<key>argumenttype</key>
-				<integer>2</integer>
+				<integer>0</integer>
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>keyword</key>
-				<string>brook</string>
+				<string>p</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
-				<true/>
+				<false/>
 				<key>queuedelaymode</key>
-				<integer>0</integer>
+				<integer>1</integer>
 				<key>queuemode</key>
-				<integer>1</integer>
+				<integer>2</integer>
 				<key>runningsubtext</key>
-				<string>Wait while searching piratebay for ya</string>
+				<string>Please wait while searching thepiratebay for {query}</string>
 				<key>script</key>
-				<string>python brook.py</string>
+				<string>python brook.py "{query}"</string>
 				<key>scriptargtype</key>
-				<integer>1</integer>
+				<integer>0</integer>
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
-				<string>Search piratebay</string>
+				<string>Search thepiratebay.org for your query</string>
 				<key>title</key>
-				<string>Search piratebay</string>
+				<string>Search The Pirate Bay...</string>
 				<key>type</key>
 				<integer>0</integer>
 				<key>withspace</key>
-				<false/>
+				<true/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>A551F7A8-51A5-4987-87DE-0251F740C023</string>
+			<string>04A38B1E-BF90-4835-A18B-5292157F3352</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>open -g "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>FE9BA6CD-BE33-4350-A527-35DC5C3D5F3E</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>The magnet link of the selected torrent was added to your Transmission queue.</string>
+				<key>title</key>
+				<string>Magnet Link Added</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>674507A5-54C8-4CAB-AD88-3E458924AD9F</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>pirate</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>1</integer>
+				<key>queuemode</key>
+				<integer>2</integer>
+				<key>runningsubtext</key>
+				<string>Please wait while searching thepiratebay for {query}</string>
+				<key>script</key>
+				<string>python brook.py "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>Search thepiratebay.org for your query</string>
+				<key>title</key>
+				<string>Search The Pirate Bay...</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>4C94FE5A-3C49-45B9-A0BF-18B934252561</string>
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
@@ -68,15 +201,36 @@
 	<string></string>
 	<key>uidata</key>
 	<dict>
-		<key>A551F7A8-51A5-4987-87DE-0251F740C023</key>
+		<key>04A38B1E-BF90-4835-A18B-5292157F3352</key>
 		<dict>
 			<key>xpos</key>
-			<integer>180</integer>
+			<integer>150</integer>
 			<key>ypos</key>
-			<integer>60</integer>
+			<integer>50</integer>
+		</dict>
+		<key>4C94FE5A-3C49-45B9-A0BF-18B934252561</key>
+		<dict>
+			<key>xpos</key>
+			<integer>150</integer>
+			<key>ypos</key>
+			<integer>210</integer>
+		</dict>
+		<key>674507A5-54C8-4CAB-AD88-3E458924AD9F</key>
+		<dict>
+			<key>xpos</key>
+			<integer>580</integer>
+			<key>ypos</key>
+			<integer>140</integer>
+		</dict>
+		<key>FE9BA6CD-BE33-4350-A527-35DC5C3D5F3E</key>
+		<dict>
+			<key>xpos</key>
+			<integer>430</integer>
+			<key>ypos</key>
+			<integer>140</integer>
 		</dict>
 	</dict>
 	<key>webaddress</key>
-	<string></string>
+	<string>https://github.com/airbugg</string>
 </dict>
 </plist>
