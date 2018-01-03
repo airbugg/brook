@@ -12,10 +12,12 @@ def is_trusted(column):
         return '✅ | '
     return ''
 
+
 def is_vip(column):
     if column.find('img', title='VIP') is not None:
         return '👑 | '
     return ''
+
 
 def search_torrents(query):
     url = 'https://thepiratebay.org/search/{}/0/99/0'.format(query)
