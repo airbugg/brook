@@ -55,7 +55,7 @@
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
-	<string>brook</string>
+	<string>Search The Pirate Bay</string>
 	<key>objects</key>
 	<array>
 		<dict>
@@ -90,7 +90,7 @@
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
-				<string>Search thepiratebay.org for your query</string>
+				<string>Search thepiratebay.org for "{query}"</string>
 				<key>title</key>
 				<string>Search The Pirate Bay...</string>
 				<key>type</key>
@@ -140,7 +140,7 @@
 				<key>text</key>
 				<string>The magnet link of the selected torrent was added to your Transmission queue.</string>
 				<key>title</key>
-				<string>Magnet Link Added</string>
+				<string>Magnet Link for "{query}" Added</string>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.output.notification</string>
@@ -181,7 +181,7 @@
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
-				<string>Search thepiratebay.org for your query</string>
+				<string>Search thepiratebay.org for: "{query}"</string>
 				<key>title</key>
 				<string>Search The Pirate Bay...</string>
 				<key>type</key>
