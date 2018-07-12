@@ -11,18 +11,18 @@ RARG_TABLE_SELECTOR = 'tr.lista2'
 
 def is_trusted(column):
     if column.find('img', title='Trusted') is not None:
-        return '✅ | '
+        return '✔ | '
     return ''
 
 
 def is_vip(column):
     if column.find('img', title='VIP') is not None:
-        return '👑 | '
+        return '✉︎ | '
     return ''
 
 
 def search_torrents(search_template, query):
-    url = search_template.format(query)
+    url = search_template.format(query.strip())
     r = web.get(url, timeout=30, allow_redirects=True)
 
     r.raise_for_status()
@@ -58,14 +58,15 @@ def format_pirate_bay_results(query, bs):
         media_type = ' '.join(columns[0].text.strip().replace('\t', '').splitlines())
         magnet = columns[1].select('a[href^="magnet"]')[0]['href']
 
-        subtitle = '{}{}{} | {} | {} | LE: {} | SE: {}'.format(vip, trusted, media_type, size, upload_date, leechers, seeders)
+        subtitle = '{}{}{} | {} | {} | LE: {} | SE: {}'.format(vip, trusted, media_type, size, upload_date, leechers,
+                                                               seeders)
 
-        results.append({
-            'title': title,
-            'subtitle': subtitle,
-            'arg': magnet,
-            'valid': True if int(seeders) > 0 else False
-        })
+        results.append(({
+                            'title': title,
+                            'subtitle': subtitle,
+                            'arg': magnet,
+                            'valid': True if int(seeders) > 0 else False
+                        }, ('title', title)))
 
     return results
 
@@ -110,8 +111,9 @@ def main(wf):
     results = search_torrents(PIRATE_SEARCH_TEMPLATE, query)
     soup = BeautifulSoup(wf.decode(results), 'html.parser')
 
-    for item in format_pirate_bay_results(query, soup):
-        wf.add_item(**item)
+    for item, variable in format_pirate_bay_results(query, soup):
+        it = wf.add_item(**item)
+        it.setvar(*variable)
 
     wf.send_feedback()
 

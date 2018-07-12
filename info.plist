@@ -8,19 +8,6 @@
 	<string>Tools</string>
 	<key>connections</key>
 	<dict>
-		<key>04A38B1E-BF90-4835-A18B-5292157F3352</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>FE9BA6CD-BE33-4350-A527-35DC5C3D5F3E</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
 		<key>4C94FE5A-3C49-45B9-A0BF-18B934252561</key>
 		<array>
 			<dict>
@@ -33,7 +20,19 @@
 				<key>vitoclose</key>
 				<false/>
 			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>AFFE635D-B562-4B4E-8A75-4D24D5698D9E</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
 		</array>
+		<key>AFFE635D-B562-4B4E-8A75-4D24D5698D9E</key>
+		<array/>
 		<key>FE9BA6CD-BE33-4350-A527-35DC5C3D5F3E</key>
 		<array>
 			<dict>
@@ -58,97 +57,6 @@
 	<string>Search The Pirate Bay</string>
 	<key>objects</key>
 	<array>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>alfredfiltersresults</key>
-				<false/>
-				<key>alfredfiltersresultsmatchmode</key>
-				<integer>0</integer>
-				<key>argumenttrimmode</key>
-				<integer>0</integer>
-				<key>argumenttype</key>
-				<integer>0</integer>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>keyword</key>
-				<string>p</string>
-				<key>queuedelaycustom</key>
-				<integer>3</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<false/>
-				<key>queuedelaymode</key>
-				<integer>1</integer>
-				<key>queuemode</key>
-				<integer>2</integer>
-				<key>runningsubtext</key>
-				<string>Please wait while searching thepiratebay for {query}</string>
-				<key>script</key>
-				<string>python brook.py "{query}"</string>
-				<key>scriptargtype</key>
-				<integer>0</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>subtext</key>
-				<string>Search thepiratebay.org for "{query}"</string>
-				<key>title</key>
-				<string>Search The Pirate Bay...</string>
-				<key>type</key>
-				<integer>0</integer>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>04A38B1E-BF90-4835-A18B-5292157F3352</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>script</key>
-				<string>open -g "{query}"</string>
-				<key>scriptargtype</key>
-				<integer>0</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>FE9BA6CD-BE33-4350-A527-35DC5C3D5F3E</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>removeextension</key>
-				<false/>
-				<key>text</key>
-				<string>The magnet link of the selected torrent was added to your Transmission queue.</string>
-				<key>title</key>
-				<string>Magnet Link for "{query}" Added</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>674507A5-54C8-4CAB-AD88-3E458924AD9F</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
@@ -196,36 +104,97 @@
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>open -g "{query}"</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>FE9BA6CD-BE33-4350-A527-35DC5C3D5F3E</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{var:title} was added to your torrent queue.</string>
+				<key>title</key>
+				<string>Magnet link added!</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>674507A5-54C8-4CAB-AD88-3E458924AD9F</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<false/>
+				<key>clipboardtext</key>
+				<string>{query}</string>
+				<key>transient</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>AFFE635D-B562-4B4E-8A75-4D24D5698D9E</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
 	<key>uidata</key>
 	<dict>
-		<key>04A38B1E-BF90-4835-A18B-5292157F3352</key>
-		<dict>
-			<key>xpos</key>
-			<integer>150</integer>
-			<key>ypos</key>
-			<integer>50</integer>
-		</dict>
 		<key>4C94FE5A-3C49-45B9-A0BF-18B934252561</key>
 		<dict>
 			<key>xpos</key>
-			<integer>150</integer>
+			<integer>140</integer>
 			<key>ypos</key>
-			<integer>210</integer>
+			<integer>140</integer>
 		</dict>
 		<key>674507A5-54C8-4CAB-AD88-3E458924AD9F</key>
 		<dict>
 			<key>xpos</key>
-			<integer>580</integer>
+			<integer>640</integer>
 			<key>ypos</key>
 			<integer>140</integer>
+		</dict>
+		<key>AFFE635D-B562-4B4E-8A75-4D24D5698D9E</key>
+		<dict>
+			<key>xpos</key>
+			<integer>320</integer>
+			<key>ypos</key>
+			<integer>280</integer>
 		</dict>
 		<key>FE9BA6CD-BE33-4350-A527-35DC5C3D5F3E</key>
 		<dict>
 			<key>xpos</key>
-			<integer>430</integer>
+			<integer>320</integer>
 			<key>ypos</key>
 			<integer>140</integer>
 		</dict>
