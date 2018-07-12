@@ -6,23 +6,28 @@ from bs4 import BeautifulSoup
 from workflow import Workflow3, web
 
 PIRATE_SEARCH_TEMPLATE = 'https://thepiratebay.org/search/{}/0/99/0'
+RARG_SEARCH_TEMPLATE = 'https://rarbgto.org/top10'
+RARG_TABLE_SELECTOR = 'lista2t'
 
 
 def is_trusted(column):
     if column.find('img', title='Trusted') is not None:
-        return '✔ | '
+        return '✅ | '
     return ''
 
 
 def is_vip(column):
     if column.find('img', title='VIP') is not None:
-        return '🧐︎ | '
+        return '👑 | '
     return ''
 
 
 def search_torrents(search_template, query):
-    url = search_template.format(query.strip())
-    r = web.get(url, timeout=30, allow_redirects=True)
+    # url = search_template.format(query)
+    url = search_template
+    headers = {
+        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36'}
+    r = web.get(url, timeout=30, allow_redirects=True, headers=headers)
 
     r.raise_for_status()
 
@@ -59,16 +64,45 @@ def format_pirate_bay_results(query, bs):
 
         subtitle = '{}{}{} | {} | {} | LE: {} | SE: {}'.format(vip, trusted, media_type, size, upload_date, leechers,
                                                                seeders)
-        item = {
+
+        results.append({
             'title': title,
             'subtitle': subtitle,
             'arg': magnet,
             'valid': True if int(seeders) > 0 else False
-        }
+        })
 
-        title_env_var = ('title', title)
+    return results
 
-        results.append((item, title_env_var))
+
+def format_rarg_results(bs):
+    results = []
+    print(bs)
+    # print(bs.find_all("table", class_='lista2t'))
+
+    # for row in bs.select(RARG_TABLE_SELECTOR)[0]:
+    #     print(row)
+    #     columns = row.find_all('td')
+    #     description = columns[1].text.strip().split('\n\n')
+    #     vip = is_vip(columns[1])
+    #     trusted = is_trusted(columns[1])
+    #     title = description[0]
+    #     metadata = description[1].encode('utf-8').split(',')
+    #     size = metadata[1].strip().split()[1]
+    #     upload_date = metadata[0].strip()
+    #     seeders = columns[2].text
+    #     leechers = columns[3].text
+    #     type = ' '.join(columns[0].text.strip().replace('\t', '').splitlines())
+    #     magnet = columns[1].select('a[href^="magnet"]')[0]['href']
+    #
+    #     subtitle = '{}{}{} | {} | {} | LE: {} | SE: {}'.format(vip, trusted, type, size, upload_date, leechers, seeders)
+    #
+    #     results.append({
+    #         'title': title,
+    #         'subtitle': subtitle,
+    #         'arg': magnet,
+    #         'valid': True if int(seeders) > 0 else False
+    #     })
 
     return results
 
@@ -79,12 +113,11 @@ def main(wf):
     else:
         query = None
 
-    results = search_torrents(PIRATE_SEARCH_TEMPLATE, query)
+    results = search_torrents(RARG_SEARCH_TEMPLATE, query)
     soup = BeautifulSoup(wf.decode(results), 'html.parser')
 
-    for item, title_env_var in format_pirate_bay_results(query, soup):
-        it = wf.add_item(**item)
-        it.setvar(*title_env_var)
+    for item in format_rarg_results(soup):
+        wf.add_item(**item)
 
     wf.send_feedback()
 
