@@ -5,7 +5,7 @@ import sys
 from bs4 import BeautifulSoup
 from workflow import Workflow3, web
 
-PIRATE_SEARCH_TEMPLATE = 'https://thepiratebay.org/search/{}/0/99/0'
+PIRATE_SEARCH_TEMPLATE = 'https://pirateproxy.live/search/{}/1/99/0'
 
 
 def is_trusted(column):
@@ -34,7 +34,7 @@ def search_torrents(search_template, query):
 def format_pirate_bay_results(query, bs):
     results = []
 
-    results_table = bs.select('table tr')[1:]
+    results_table = bs.select('#searchResult tr')[1:-1]
 
     if not results_table:
         results_table.append({
